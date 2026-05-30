@@ -28,6 +28,11 @@ class Experience extends Model
     /** @use HasFactory<ExperienceFactory> */
     use HasFactory;
 
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
     /**
      * @return BelongsTo<ExperienceCategory, $this>
      */
