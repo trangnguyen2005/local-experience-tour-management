@@ -4,140 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $title ?? 'VN Local Experience' }}</title>
-    <style>
-        :root {
-            --brand: #0f766e;
-            --brand-dark: #0f4f49;
-            --accent: #f59e0b;
-            --ink: #172026;
-            --muted: #64748b;
-            --line: #e2e8f0;
-            --soft: #f8fafc;
-            --white: #fff;
-        }
-        * { box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; margin: 0; background: var(--soft); color: var(--ink); line-height: 1.5; }
-        a { color: inherit; }
-        .shell { max-width: 1180px; margin: 0 auto; padding: 0 18px; }
-        .site-header { position: sticky; top: 0; z-index: 20; background: rgba(255, 255, 255, .94); border-bottom: 1px solid var(--line); backdrop-filter: blur(10px); }
-        .nav { min-height: 72px; display: flex; gap: 22px; align-items: center; }
-        .brand { display: flex; gap: 10px; align-items: center; text-decoration: none; font-weight: 800; font-size: 20px; color: var(--brand-dark); white-space: nowrap; }
-        .brand-mark { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; color: var(--white); background: linear-gradient(135deg, var(--brand), #14b8a6); font-weight: 800; }
-        .menu { display: flex; gap: 8px; align-items: center; margin-left: auto; }
-        .menu a { text-decoration: none; padding: 10px 14px; border-radius: 999px; color: #334155; font-weight: 700; }
-        .menu a.active, .menu a:hover { background: #dff7f3; color: var(--brand-dark); }
-        .account { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-        .main { padding: 26px 0 46px; }
-        .card { background: var(--white); border: 1px solid var(--line); border-radius: 8px; padding: 22px; box-shadow: 0 12px 30px rgba(15, 23, 42, .05); }
-        .section { margin-top: 34px; }
-        .section-head { display: flex; justify-content: space-between; gap: 18px; align-items: end; margin-bottom: 16px; }
-        .section-title { margin: 0; font-size: 30px; line-height: 1.2; }
-        .eyebrow { color: var(--brand); font-weight: 800; text-transform: uppercase; font-size: 12px; letter-spacing: .08em; }
-        .grid { display: grid; gap: 18px; }
-        .grid.cards { grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); }
-        .hero-home { min-height: 520px; border-radius: 8px; overflow: hidden; display: grid; align-items: end; background: linear-gradient(180deg, rgba(8, 47, 73, .1), rgba(8, 47, 73, .78)), url('https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1600&q=80') center/cover; color: var(--white); padding: 56px; }
-        .hero-content { max-width: 680px; }
-        .hero-content h1 { margin: 10px 0 14px; font-size: 54px; line-height: 1.05; }
-        .hero-content p { font-size: 18px; max-width: 620px; }
-        .destinations-section { margin: 46px calc(50% - 50vw) 0; padding: 38px 18px 50px; background: #eef3f3; }
-        .destinations-inner { max-width: 1180px; margin: 0 auto; }
-        .destinations-title { margin: 0 0 34px; text-align: center; color: #334155; font-size: 42px; line-height: 1.15; font-weight: 800; }
-        .destinations-title::after { content: ""; display: block; width: 76px; height: 4px; margin: 12px auto 0; background: #ef5b45; border-radius: 999px; }
-        .destinations-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px 28px; }
-        .destination-card { position: relative; min-height: 220px; border-radius: 8px; overflow: hidden; color: var(--white); text-decoration: none; background: #cbd5e1; box-shadow: 0 14px 28px rgba(15, 23, 42, .1); }
-        .destination-card img { width: 100%; height: 100%; min-height: 220px; object-fit: cover; transition: transform .25s ease; }
-        .destination-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15, 23, 42, .02) 40%, rgba(15, 23, 42, .72) 100%); }
-        .destination-card span { position: absolute; left: 16px; right: 16px; bottom: 18px; z-index: 1; text-align: center; font-size: 26px; font-weight: 800; text-shadow: 0 3px 8px rgba(0, 0, 0, .65); }
-        .destination-card:hover img { transform: scale(1.04); }
-        .about-section { display: grid; grid-template-columns: 1fr 1.05fr; gap: 54px; align-items: center; }
-        .about-title { margin: 0 0 30px; color: #334155; font-size: 38px; line-height: 1.15; font-weight: 800; }
-        .about-title::after { content: ""; display: block; width: 76px; height: 3px; margin: 12px auto 0 160px; background: #ef5b45; border-radius: 999px; }
-        .about-copy h3 { margin: 20px 0 10px; color: #334155; font-size: 24px; }
-        .about-copy p { margin: 0; font-size: 17px; color: #26323f; }
-        .about-visual { position: relative; min-height: 420px; border-radius: 8px; overflow: hidden; background: url('https://images.unsplash.com/photo-1563299796-17596ed6b017?auto=format&fit=crop&w=1200&q=80') center/cover; box-shadow: 0 14px 34px rgba(15, 23, 42, .16); }
-        .about-visual::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(247, 255, 237, .9) 0%, rgba(247, 255, 237, .35) 35%, rgba(23, 78, 37, .6) 100%); }
-        .about-visual-content { position: relative; z-index: 1; height: 100%; min-height: 420px; display: flex; flex-direction: column; justify-content: space-between; padding: 24px 36px; color: var(--white); }
-        .about-brand-text { text-align: center; color: #2f7d46; text-shadow: 0 1px 0 rgba(255,255,255,.45); }
-        .about-brand-text strong { display: block; font-size: 34px; line-height: 1; }
-        .about-brand-text span { display: block; font-size: 58px; line-height: .9; font-weight: 900; letter-spacing: .02em; }
-        .about-brand-text em { display: block; font-size: 24px; font-family: Georgia, serif; color: #6b9b54; }
-        .about-tags { display: flex; justify-content: space-around; gap: 12px; margin-top: 18px; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,.4); }
-        .about-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; text-align: center; text-shadow: 0 2px 6px rgba(0,0,0,.55); }
-        .about-stats strong { display: block; font-size: 38px; line-height: 1; }
-        .about-stats span { font-weight: 800; }
-        .why-section { margin: 46px calc(50% - 50vw) 0; padding: 8px 18px 34px; background: var(--white); border-top: 1px solid #eef2f7; border-bottom: 1px solid #eef2f7; }
-        .why-inner { max-width: 1180px; margin: 0 auto; text-align: center; }
-        .why-title { margin: 0; color: #334155; font-size: 38px; line-height: 1.15; font-weight: 800; }
-        .why-title::after { content: ""; display: block; width: 76px; height: 3px; margin: 12px auto 10px; background: #ef5b45; border-radius: 999px; }
-        .why-subtitle { margin: 0; color: #666; font-size: 17px; }
-        .why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 42px; margin-top: 62px; }
-        .why-item { display: grid; justify-items: center; gap: 18px; }
-        .why-icon { font-size: 32px; line-height: 1; font-weight: 900; }
-        .why-icon.green { color: #78ad59; }
-        .why-icon.orange { color: #f2a23a; }
-        .why-icon.red { color: #d65a4a; }
-        .why-icon.brown { color: #df883e; }
-        .why-item h3 { margin: 0; max-width: 260px; color: #303030; font-size: 30px; line-height: 1.45; font-weight: 900; }
-        .why-item p { margin: 0; color: #333; font-size: 17px; }
-        .hero-actions, .actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-        .btn { background: var(--brand); color: var(--white); border: 0; border-radius: 999px; padding: 10px 16px; cursor: pointer; font-weight: 700; }
-        .btn.link { display: inline-block; text-decoration: none; }
-        .btn.secondary { background: #334155; }
-        .btn.light { background: #e6f4f1; color: var(--brand-dark); }
-        .btn.accent { background: var(--accent); color: #3b2600; }
-        .field { display: grid; gap: 6px; margin-bottom: 12px; }
-        .field label { font-weight: 700; }
-        .field input, .field select, .field textarea { width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: var(--white); }
-        .filters { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); align-items: end; }
-        .error { color: #b91c1c; margin: 0 0 12px; }
-        .ok { color: #166534; margin: 0 0 12px; }
-        .muted { color: var(--muted); }
-        .meta { display: flex; gap: 10px; flex-wrap: wrap; color: #475569; font-size: 14px; }
-        .badge { display: inline-block; padding: 5px 10px; border-radius: 999px; background: #ecfeff; color: #0e7490; font-weight: 700; font-size: 13px; }
-        .price { color: var(--brand-dark); font-weight: 800; }
-        .tour-card { padding: 0; overflow: hidden; }
-        .tour-card-body { padding: 18px; }
-        .tour-card h2, .tour-card h3 { margin: 10px 0; }
-        .inline { display: inline; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { border-bottom: 1px solid var(--line); padding: 10px; text-align: left; vertical-align: top; }
-        th { background: #f8fafc; }
-        .pagination { margin-top: 16px; }
-        .hero { display: grid; gap: 20px; grid-template-columns: 1.2fr .8fr; align-items: start; }
-        .image-box { background: #dff7f3; border-radius: 8px; min-height: 190px; display: grid; place-items: center; color: #475569; overflow: hidden; }
-        .image-box.tall { min-height: 270px; }
-        .image-box img { width: 100%; height: 100%; object-fit: cover; }
-        .fallback-image { width: 100%; height: 100%; min-height: inherit; display: grid; place-items: center; background: linear-gradient(135deg, #ccfbf1, #fef3c7); font-weight: 700; color: var(--brand-dark); }
-        .category-card { min-height: 150px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #ffffff, #effdf9); }
-        .site-footer { border-top: 1px solid var(--line); background: #0f172a; color: #cbd5e1; padding: 28px 0; }
-        .footer-row { display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
-        @media (max-width: 820px) {
-            .nav { align-items: flex-start; flex-direction: column; padding: 14px 0; gap: 12px; }
-            .menu { margin-left: 0; }
-            .hero-home { min-height: 430px; padding: 32px 24px; }
-            .hero-content h1 { font-size: 38px; }
-            .destinations-title { font-size: 34px; }
-            .destinations-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-            .destination-card, .destination-card img { min-height: 180px; }
-            .destination-card span { font-size: 22px; }
-            .about-section { grid-template-columns: 1fr; gap: 28px; }
-            .about-title::after { margin-left: auto; }
-            .about-visual, .about-visual-content { min-height: 380px; }
-            .about-brand-text span { font-size: 46px; }
-            .why-title { font-size: 32px; }
-            .why-grid { grid-template-columns: repeat(2, 1fr); gap: 34px 22px; margin-top: 42px; }
-            .why-item h3 { font-size: 25px; }
-            .hero { grid-template-columns: 1fr; }
-            .section-head { align-items: start; flex-direction: column; }
-            th, td { padding: 8px 6px; }
-        }
-        @media (max-width: 520px) {
-            .destinations-grid { grid-template-columns: 1fr; }
-            .about-tags { flex-direction: column; align-items: center; }
-            .about-stats { grid-template-columns: 1fr; }
-            .why-grid { grid-template-columns: 1fr; }
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
 <header class="site-header">
@@ -148,25 +15,31 @@
                 <span>Local Experience</span>
             </a>
 
-            <nav class="menu" aria-label="Menu chính">
-                <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Trang chủ</a>
-                <a href="{{ route('experiences.index') }}" class="{{ request()->routeIs('experiences.*') ? 'active' : '' }}">Các chuyến tham quan</a>
-            </nav>
+            <button class="navbar-toggler" type="button" aria-controls="mainNavbar" aria-expanded="false" aria-label="Mở menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-            <div class="account">
-                @auth
-                    <a class="btn light link" href="{{ route('dashboard') }}">Tài khoản</a>
-                    @if(auth()->user()->isAdmin())
-                        <a class="btn light link" href="{{ route('admin.dashboard') }}">Admin</a>
-                    @endif
-                    <form class="inline" method="post" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="btn secondary">Đăng xuất</button>
-                    </form>
-                @else
-                    <a class="btn light link" href="{{ route('login') }}">Đăng nhập</a>
-                    <a class="btn accent link" href="{{ route('register') }}">Đăng ký</a>
-                @endauth
+            <div class="navbar-collapse" id="mainNavbar">
+                <nav class="menu" aria-label="Menu chính">
+                    <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Trang chủ</a>
+                    <a href="{{ route('experiences.index') }}" class="{{ request()->routeIs('experiences.*') ? 'active' : '' }}">Các chuyến tham quan</a>
+                </nav>
+
+                <div class="account">
+                    @auth
+                        <a class="btn light link" href="{{ route('dashboard') }}">Tài khoản</a>
+                        @if(auth()->user()->isAdmin())
+                            <a class="btn light link" href="{{ route('admin.dashboard') }}">Admin</a>
+                        @endif
+                        <form class="inline" method="post" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="btn secondary">Đăng xuất</button>
+                        </form>
+                    @else
+                        <a class="btn light link" href="{{ route('login') }}">Đăng nhập</a>
+                        <a class="btn accent link" href="{{ route('register') }}">Đăng ký</a>
+                    @endauth
+                </div>
             </div>
         </div>
     </div>
@@ -201,5 +74,6 @@
         <div>info@localexperience.test</div>
     </div>
 </footer>
+<script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>
