@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\BookingController as AdminBookingController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\ExperienceCategoryController as AdminExperienceCategoryController;
+use App\Http\Controllers\Admin\ExperienceController as AdminExperienceController;
+use App\Http\Controllers\Admin\OrganizerController as AdminOrganizerController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\DashboardController;
@@ -32,4 +36,9 @@ Route::middleware(['auth', 'admin'])
     ->name('admin.')
     ->group(function (): void {
         Route::get('/dashboard', AdminDashboardController::class)->name('dashboard');
+        Route::resource('categories', AdminExperienceCategoryController::class)->except(['show']);
+        Route::resource('organizers', AdminOrganizerController::class)->except(['show']);
+        Route::resource('experiences', AdminExperienceController::class)->except(['show']);
+        Route::get('/bookings', [AdminBookingController::class, 'index'])->name('bookings.index');
+        Route::patch('/bookings/{booking}/status', [AdminBookingController::class, 'updateStatus'])->name('bookings.update-status');
     });

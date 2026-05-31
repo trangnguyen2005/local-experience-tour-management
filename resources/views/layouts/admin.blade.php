@@ -63,6 +63,30 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.categories.index') }}" class="nav-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-tags"></i>
+                            <p>Loại trải nghiệm</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.organizers.index') }}" class="nav-link {{ request()->routeIs('admin.organizers.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-user-tie"></i>
+                            <p>Người tổ chức</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.experiences.index') }}" class="nav-link {{ request()->routeIs('admin.experiences.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-map-marked-alt"></i>
+                            <p>Hoạt động trải nghiệm</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.bookings.index') }}" class="nav-link {{ request()->routeIs('admin.bookings.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-file-signature"></i>
+                            <p>Đơn đăng ký</p>
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -81,6 +105,12 @@
 
         <section class="content">
             <div class="container-fluid">
+                @if(session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
+
                 @if($errors->any())
                     <div class="alert alert-danger">
                         <ul class="mb-0 pl-3">

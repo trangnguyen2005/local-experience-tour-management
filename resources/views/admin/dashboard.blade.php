@@ -5,7 +5,7 @@
         <div class="col-lg-3 col-6">
             <div class="small-box bg-info">
                 <div class="inner">
-                    <h3>0</h3>
+                    <h3>{{ $experienceCount }}</h3>
                     <p>Hoạt động trải nghiệm</p>
                 </div>
                 <div class="icon">
@@ -17,7 +17,7 @@
         <div class="col-lg-3 col-6">
             <div class="small-box bg-success">
                 <div class="inner">
-                    <h3>0</h3>
+                    <h3>{{ $bookingCount }}</h3>
                     <p>Đơn đăng ký</p>
                 </div>
                 <div class="icon">
@@ -29,7 +29,7 @@
         <div class="col-lg-3 col-6">
             <div class="small-box bg-warning">
                 <div class="inner">
-                    <h3>0</h3>
+                    <h3>{{ $userCount }}</h3>
                     <p>Người dùng</p>
                 </div>
                 <div class="icon">
@@ -41,7 +41,7 @@
         <div class="col-lg-3 col-6">
             <div class="small-box bg-danger">
                 <div class="inner">
-                    <h3>0 ₫</h3>
+                    <h3>{{ number_format($revenue, 0, ',', '.') }} ₫</h3>
                     <p>Doanh thu</p>
                 </div>
                 <div class="icon">
@@ -57,7 +57,7 @@
         </div>
         <div class="card-body">
             <p class="mb-2">Bạn đang đăng nhập với vai trò: <strong>{{ auth()->user()->role }}</strong>.</p>
-            <p class="mb-0">Giao diện quản trị hiện đã dùng AdminLTE 3 cho khu vực <code>/admin</code>.</p>
+            <p class="mb-0">Khu vực quản trị hỗ trợ CRUD loại trải nghiệm, người tổ chức, hoạt động trải nghiệm và xử lý đơn đăng ký.</p>
         </div>
     </div>
 @endsection
